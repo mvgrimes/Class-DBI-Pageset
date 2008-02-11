@@ -6,7 +6,6 @@ Makefile.PL
 MANIFEST
 META.yml			Module meta-data (added by MakeMaker)
 README
-samples/
 t/00-new.t
 t/01-pageset.t
 t/02-pageset-html.t
