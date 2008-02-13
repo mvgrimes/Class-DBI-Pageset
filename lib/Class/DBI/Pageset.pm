@@ -18,7 +18,7 @@ package Class::DBI::Pageset;
 use strict;
 use warnings;
 
-our $VERSION = '0.10';
+our $VERSION = '0.11';
 our $AUTOLOAD;
 
 use Class::DBI 0.90;
@@ -111,10 +111,11 @@ C<Data::Pageset> into C<Class::DBI> with minimal fuss. This enables you
 to search via C<Class::DBI> and grouping results into pages and page sets.
 
 This module is very similar to Tatsuhiko Miyagawa's very nice
-C<Class::DBI::Pager> module, but uses C<Data::Pageset> to create the pager. 
-C<Data::Pageset> provides a more flexible pager, which is better suited to
-searches that return many pages. This is not necessarily very efficient (see 
-C<NOTE> below for more).
+C<Class::DBI::Pager> module, but uses C<Data::Pageset> (or any module that
+inherits from C<Data::Pageset>, such as C<Data::Pageset::HTML>) to create
+the pager. C<Data::Pageset> provides a more flexible pager, which is better
+suited to searches that return many pages. This is not necessarily very
+efficient (see C<NOTE> below for more).
 
 =head1 EXAMPLE
 
@@ -151,6 +152,14 @@ C<NOTE> below for more).
   [% IF pager.next_set %]
     <a href="display?page=[% pager.next_set %]">...</a>
   [% END %]
+
+To use one of the modules that inherit from C<Data::Pageset> (such as 
+C<Data::Pageset::HTML>) just include the module name as part of the C<use>
+statement.
+
+    use Class::DBI::Pageset qw(Data::Pageset::HTML);
+    ## Then in your code you can use
+    $pager->html( '<a href="index?page=%s">%a</a>' );
 
 =head1 METHODS
 
@@ -211,12 +220,22 @@ might be more memory efficient. As this module is geared to searches that
 return many pages of results, it maybe more prone to inefficiencies than
 C<Class::DBI::Pager>.
 
+I had originally wanted to patch C<Class::DBI::Pager> to use different pagers,
+ie, C<Data::Page>, C<Data::Pageset>, or C<Data::Pageset::HTML>, but the 
+constructors for C<Data::Page> and C<Data::Pageset> are incompatible and 
+jamming them together didn't seem like a good fix.
+
 =head1 SEE ALSO
 
 C<Class::DBI>, C<Data::Pageset>
 
 Or for alternatives: C<Class::DBI::Pager>, C<DBIx::Class>,
 C<DBIx::Class::ResultSet::Data::Pageset>
+
+=head1 BUGS
+
+Please report any bugs or suggestions at 
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Class-DBI-Pageset>
 
 =head1 AUTHOR
 

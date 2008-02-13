@@ -6,6 +6,7 @@ my $build = Module::Build->new(
     create_makefile_pl => 'passthrough',
     requires           => {
         'Data::Pageset' => '1.04',
+        'Class::DBI'    => '0.90',
     },
     recommends         => {
         'Data::Pageset:HTML' => 0,
