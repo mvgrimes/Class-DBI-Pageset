@@ -5,10 +5,10 @@ BEGIN {
     my $go_ahead = 1;
 
     eval "use DBD::SQLite";         undef $go_ahead if $@;
-    eval "use Data::Pageset::HTML"; undef $go_ahead if $@;
+    eval "use Data::Pageset::Render"; undef $go_ahead if $@;
     plan $go_ahead
       ? ( tests => 49 )
-      : ( skip_all => 'needs DBD::SQLite and Data::Pageset::HTML for testing' );
+      : ( skip_all => 'needs DBD::SQLite and Data::Pageset::Render for testing' );
 }
 
 use DBI;
@@ -29,7 +29,7 @@ __PACKAGE__->table('film');
 __PACKAGE__->columns( Primary => qw(id) );
 __PACKAGE__->columns( All     => qw(title) );
 
-use Class::DBI::Pageset qw(Data::Pageset::HTML);
+use Class::DBI::Pageset qw(Data::Pageset::Render);
 
 package main;
 for my $i ( 1 .. 100 ) {
