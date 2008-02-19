@@ -9,7 +9,7 @@ my $build = Module::Build->new(
         'Class::DBI'    => '0.90',
     },
     recommends         => {
-        'Data::Pageset::Render' => 0,
+        'Data::Pageset::Render' => '0.12',
     }
   );
 $build->create_build_script;

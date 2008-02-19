@@ -62,7 +62,7 @@ for my $i ( 1 .. 100 ) {
     is_deeply $pager->pages_in_set, [ 1 .. 10 ], 'pages_in_set';
 
     is $pager->html( '<a href="here?page=%p">%a</a>' ),
-       ' 1 <a href="here?page=2">2</a><a href="here?page=3">3</a><a href="here?page=4">4</a><a href="here?page=5">5</a><a href="here?page=6">6</a><a href="here?page=7">7</a><a href="here?page=8">8</a><a href="here?page=9">9</a><a href="here?page=10">10</a><a href="here?page=2">&gt;&gt;</a>',
+       '1<a href="here?page=2">2</a><a href="here?page=3">3</a><a href="here?page=4">4</a><a href="here?page=5">5</a><a href="here?page=6">6</a><a href="here?page=7">7</a><a href="here?page=8">8</a><a href="here?page=9">9</a><a href="here?page=10">10</a><a href="here?page=2">&gt;&gt;</a>',
        'html rendering';
 
     isa_ok $iterator, 'Class::DBI::Iterator';
@@ -94,7 +94,7 @@ for my $i ( 1 .. 100 ) {
     is_deeply $pager->pages_in_set, [ 4 .. 6 ], 'pages_in_set';
 
     is $pager->html( '<a href="here?page=%p">%a</a>' ),
-       '<a href="here?page=4">&lt;&lt;</a><a href="here?page=1">1</a><a href="here?page=2">...</a><a href="here?page=4">4</a> 5 <a href="here?page=6">6</a><a href="here?page=8">...</a><a href="here?page=10">10</a><a href="here?page=6">&gt;&gt;</a>',
+       '<a href="here?page=4">&lt;&lt;</a><a href="here?page=1">1</a><a href="here?page=2">...</a><a href="here?page=4">4</a>5<a href="here?page=6">6</a><a href="here?page=8">...</a><a href="here?page=10">10</a><a href="here?page=6">&gt;&gt;</a>',
        'html rendering';
 
     isa_ok $iterator, 'Class::DBI::Iterator';
@@ -126,7 +126,7 @@ for my $i ( 1 .. 100 ) {
     is_deeply $pager->pages_in_set, [ 1 .. 3 ], 'pages_in_set';
 
     is $pager->html( '<a href="here?page=%p">%a</a>' ),
-       ' 1 <a href="here?page=2">2</a><a href="here?page=3">3</a><a href="here?page=2">&gt;&gt;</a>',
+       '1<a href="here?page=2">2</a><a href="here?page=3">3</a><a href="here?page=2">&gt;&gt;</a>',
        'html rendering';
 
     is $iterator->count, 5, "iterator counts 5";

@@ -18,7 +18,7 @@ package Class::DBI::Pageset;
 use strict;
 use warnings;
 
-our $VERSION = '0.12';
+our $VERSION = '0.14';
 our $AUTOLOAD;
 
 use Class::DBI 0.90;
