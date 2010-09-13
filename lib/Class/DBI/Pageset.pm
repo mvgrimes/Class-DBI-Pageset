@@ -1,24 +1,11 @@
 package Class::DBI::Pageset;
 
-###########################################################################
-# Class::DBI::Pageset
-# Mark Grimes
-# $Id: NAMESPACE.pm,v 1.3 2006/11/29 02:40:22 mgrimes Exp $
-#
-# A flexible pager utility for Class::DBI
-# Copyright (c) 2008 Mark Grimes (mgrimes@cpan.org).
-# All rights reserved. This program is free software; you can redistribute
-# it and/or modify it under the same terms as Perl itself.
-#
-# Heavily inspired by (read: stolen from) Class::DBI::Pager and
-# DBIx::Class::ResultSet::Data::Pageset. Thanks!
-#
-###########################################################################
+# ABSTRACT: A flexible pager utility for Class::DBI
 
 use strict;
 use warnings;
 
-our $VERSION = '0.14';
+our $VERSION = '0.15';
 our $AUTOLOAD;
 
 use Class::DBI 0.90;
@@ -29,8 +16,11 @@ sub _croak { require Carp; Carp::croak(@_); }
 sub import {
     my $class = shift;
     my $pkg   = caller(0);
-    no strict 'refs';
-    *{"$pkg\::pager"} = \&_pager;
+    
+    do {
+        no strict 'refs';
+        *{"$pkg\::pager"} = \&_pager;
+    };
 
     $PAGER_IMPLEMENTATION = shift if @_;
     ( my $pager_implementation_file = "$PAGER_IMPLEMENTATION.pm" ) =~ s{::}{/}g;
@@ -59,7 +49,7 @@ sub AUTOLOAD {
     ( my $method = $AUTOLOAD ) =~ s/.*://;
     if ( ref($self) && $self->{pkg}->can($method) ) {
         my $iter = $self->{pkg}->$method(@_);
-        UNIVERSAL::isa( $iter, 'Class::DBI::Iterator' )
+        $iter->isa( 'Class::DBI::Iterator' )
           or _croak("$method doesn't return Class::DBI::Itertor");
         my $pager_opts = $self->{pager_opts};
         my $pager = $self->{pager} = $PAGER_IMPLEMENTATION->new( {

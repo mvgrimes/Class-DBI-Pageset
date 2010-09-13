@@ -4,5 +4,6 @@
 ~$
 \.bak$
 \.svn/
+\.git/
 ^MANIFEST\.SKIP$
 .releaserc
